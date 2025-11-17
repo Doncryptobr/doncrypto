@@ -20,8 +20,75 @@ document.addEventListener('DOMContentLoaded', function() {
         name: 'Mãe Especial'
     };
 
+    // Guides Data
+    const guidesData = [
+        {
+            id: 1,
+            title: 'Chá de Bebê Perfeito',
+            subtitle: 'Organize o Chá de Bebê Mais Memorável e Estratégico',
+            category: 'eventos',
+            free: true,
+            rating: 5.0,
+            icon: 'fa-baby-carriage',
+            bullets: [
+                '30 jogos e dinâmicas criativas',
+                'Lista de presentes estratégica',
+                'Economize R$ 2.000+ comprando certo',
+                'Templates de convites editáveis'
+            ],
+            meta: '📄 6 guias em 4 partes • ⏱️ 3–8 horas',
+            testimonial: '"Meu chá foi o mais organizado da família!" – Carla M., Curitiba',
+            userHasGuide: true,
+            file: 'assets/ebooks/cha-bebe-perfeito.pdf'
+        },
+        {
+            id: 2,
+            title: 'Mala da Maternidade Perfeita',
+            subtitle: 'Checklist Completo Para Não Esquecer Nada',
+            category: 'preparacao',
+            free: true,
+            rating: 4.9,
+            icon: 'fa-suitcase',
+            bullets: [
+                'Checklist completa de 3 malas',
+                'Saber exatamente o que não levar',
+                'Evite esquecimentos de última hora',
+                'Modelos de etiquetas prontas'
+            ],
+            meta: '📄 18 páginas • ⏱️ 2–3 horas',
+            testimonial: '"Não esqueci absolutamente nada!" – Juliana S., São Paulo',
+            userHasGuide: false,
+            file: 'assets/ebooks/mala-maternidade.pdf'
+        },
+        {
+            id: 3,
+            title: 'Organização do Enxoval do Bebê',
+            subtitle: 'Monte o Enxoval Perfeito Gastando Menos',
+            category: 'organizacao',
+            free: true,
+            rating: 5.0,
+            icon: 'fa-box-open',
+            bullets: [
+                'Economize até R$ 2.500 no enxoval',
+                'Checklist completo (150+ itens)',
+                'Aprenda onde comprar com melhor preço',
+                'Sistema de organização passo a passo'
+            ],
+            meta: '📄 78 páginas • ⏱️ 8–12 horas',
+            testimonial: '"Economizei muito e comprei tudo certo!" – Amanda R., BH',
+            userHasGuide: false,
+            file: 'assets/ebooks/organizacao-enxoval.pdf'
+        }
+    ];
+
     // Check if user is already logged in
     checkAuthStatus();
+
+    // Initialize guides grid
+    renderGuides(guidesData);
+
+    // Setup search and filters
+    setupSearchAndFilters();
 
     // Toggle password visibility
     togglePasswordBtn.addEventListener('click', function() {
@@ -65,64 +132,124 @@ document.addEventListener('DOMContentLoaded', function() {
         showLogoutAnimation();
     });
 
-    // Download buttons - Real file downloads
-    document.querySelectorAll('.btn-download').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const itemName = this.parentElement.querySelector('span').textContent;
-            const filePath = this.getAttribute('data-file');
+    // Render Guides Function
+    function renderGuides(guides) {
+        const grid = document.getElementById('guidesGrid');
+        if (!grid) return;
 
-            if (filePath) {
-                showNotification(`Preparando download: ${itemName}`, 'success');
+        grid.innerHTML = guides.map(guide => `
+            <div class="guide-card" data-category="${guide.category}">
+                <div class="card-header">
+                    <span class="card-badge ${guide.free ? 'badge-free' : 'badge-premium'}">
+                        ${guide.free ? 'Grátis' : 'Premium'}
+                    </span>
+                    <span class="card-rating">
+                        <i class="fas fa-star"></i>
+                        ${guide.rating.toFixed(1)}
+                    </span>
+                    <div class="card-image">
+                        <i class="fas ${guide.icon}"></i>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3>${guide.title}</h3>
+                    <p class="guide-subtitle">${guide.subtitle}</p>
+                    <ul class="guide-bullets">
+                        ${guide.bullets.map(bullet => `
+                            <li>
+                                <i class="fas fa-check"></i>
+                                ${bullet}
+                            </li>
+                        `).join('')}
+                    </ul>
+                    <div class="guide-meta">${guide.meta}</div>
+                    <div class="card-footer">
+                        <button class="guide-cta included" data-file="${guide.file}" data-title="${guide.title}">
+                            <i class="fas fa-check-circle"></i>
+                            Incluído no seu plano
+                        </button>
+                        <p class="guide-testimonial">${guide.testimonial}</p>
+                        ${guide.userHasGuide ? `
+                            <div class="guide-read-status">
+                                <i class="fas fa-check-circle"></i>
+                                Você já leu este guia
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            </div>
+        `).join('');
 
-                // Create download link
+        // Add click events for CTA buttons
+        grid.querySelectorAll('.guide-cta').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const file = this.getAttribute('data-file');
+                const title = this.getAttribute('data-title');
+
+                showNotification(`Preparando download: ${title}`, 'success');
+
                 setTimeout(() => {
                     const link = document.createElement('a');
-                    link.href = filePath;
-                    link.download = filePath.split('/').pop();
+                    link.href = file;
+                    link.download = file.split('/').pop();
                     link.style.display = 'none';
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
 
-                    showNotification(`${itemName} baixado com sucesso!`, 'success');
+                    showNotification(`${title} baixado com sucesso!`, 'success');
                 }, 500);
-            } else {
-                showNotification(`Arquivo não disponível: ${itemName}`, 'warning');
-            }
+            });
         });
-    });
+    }
 
-    // Play buttons - Audio/Video playback
-    document.querySelectorAll('.btn-play').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const itemName = this.parentElement.querySelector('span').textContent;
-            const videoPath = this.getAttribute('data-video');
-            const audioPath = this.getAttribute('data-audio');
+    // Setup Search and Filters
+    function setupSearchAndFilters() {
+        const searchInput = document.getElementById('searchInput');
+        const filterChips = document.querySelectorAll('.filter-chip');
+        let currentFilter = 'todos';
 
-            if (videoPath || audioPath) {
-                const mediaPath = videoPath || audioPath;
-                showNotification(`Iniciando: ${itemName}`, 'info');
+        // Search functionality
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                filterAndSearchGuides(currentFilter, searchTerm);
+            });
+        }
 
-                // Open media in new tab or modal (you can customize this)
-                setTimeout(() => {
-                    window.open(mediaPath, '_blank');
-                }, 500);
-            } else {
-                showNotification(`Mídia não disponível: ${itemName}`, 'warning');
-            }
+        // Filter chips functionality
+        filterChips.forEach(chip => {
+            chip.addEventListener('click', function() {
+                filterChips.forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = this.getAttribute('data-filter');
+
+                const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+                filterAndSearchGuides(currentFilter, searchTerm);
+            });
         });
-    });
+    }
 
-    // Access buttons
-    document.querySelectorAll('.btn-access').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const itemName = this.parentElement.querySelector('span').textContent;
-            showNotification(`Acessando: ${itemName}`, 'info');
+    // Filter and Search Guides
+    function filterAndSearchGuides(filter, searchTerm) {
+        let filteredGuides = guidesData;
 
-            // You can add specific URLs here
-            // window.open('https://your-group-link.com', '_blank');
-        });
-    });
+        // Apply category filter
+        if (filter !== 'todos') {
+            filteredGuides = filteredGuides.filter(guide => guide.category === filter);
+        }
+
+        // Apply search filter
+        if (searchTerm) {
+            filteredGuides = filteredGuides.filter(guide =>
+                guide.title.toLowerCase().includes(searchTerm) ||
+                guide.subtitle.toLowerCase().includes(searchTerm) ||
+                guide.bullets.some(bullet => bullet.toLowerCase().includes(searchTerm))
+            );
+        }
+
+        renderGuides(filteredGuides);
+    }
 
     // Helper Functions
     function checkAuthStatus() {
@@ -291,12 +418,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 500);
         }, 3000);
     }
-
-    // Add hover effects to cards
-    const cards = document.querySelectorAll('.content-card');
-    cards.forEach((card, index) => {
-        card.style.animationDelay = `${index * 0.1}s`;
-    });
 
     // Smooth scroll for any anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

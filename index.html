@@ -90,119 +90,52 @@
         </header>
 
         <main class="dashboard-main">
-            <section class="hero-section">
-                <div class="hero-content">
-                    <h2>Sua Biblioteca Exclusiva</h2>
-                    <p>Conteúdos criados com carinho para transformar sua maternidade em uma experiência mais leve e segura</p>
+            <!-- Hero Section - Biblioteca de Guias -->
+            <section class="library-hero">
+                <div class="hero-left">
+                    <h2>Biblioteca de Guias Práticos</h2>
+                    <p class="hero-subtitle">Tudo que você precisa para preparar o enxoval <strong>SEM ESTRESSE</strong> e economizando até <strong>R$ 2.500</strong></p>
+                    <div class="hero-badges">
+                        <span class="hero-badge">
+                            <i class="fas fa-book"></i>
+                            3 guias disponíveis
+                        </span>
+                        <span class="hero-badge">
+                            <i class="fas fa-calendar-plus"></i>
+                            Novos guias toda semana
+                        </span>
+                        <span class="hero-badge">
+                            <i class="fas fa-check-square"></i>
+                            Checklists editáveis
+                        </span>
+                    </div>
+                </div>
+                <div class="hero-right">
+                    <span class="premium-status">
+                        <i class="fas fa-crown"></i>
+                        Premium Ativo
+                    </span>
                 </div>
             </section>
 
-            <section class="content-grid">
-                <div class="content-card premium-card">
-                    <div class="premium-badge">ACESSO VITALÍCIO</div>
-                    <div class="card-icon">
-                        <i class="fas fa-crown"></i>
-                    </div>
-                    <h3>Guia Completo da Gestação</h3>
-                    <p>Tudo que você precisa saber, semana a semana, para viver uma gravidez tranquila e informada</p>
-                    <div class="card-items">
-                        <div class="item">
-                            <i class="fas fa-gem"></i>
-                            <span>40 Semanas de Conhecimento</span>
-                            <button class="btn-download" data-file="assets/ebooks/guia-gestacao-completo.pdf"><i class="fas fa-download"></i></button>
-                        </div>
-                    </div>
+            <!-- Search and Filters -->
+            <section class="search-filters">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Buscar ebooks...">
                 </div>
+                <div class="filter-chips">
+                    <button class="filter-chip active" data-filter="todos">Todos</button>
+                    <button class="filter-chip" data-filter="bundle">Bundle</button>
+                    <button class="filter-chip" data-filter="eventos">Eventos</button>
+                    <button class="filter-chip" data-filter="preparacao">Preparação</button>
+                    <button class="filter-chip" data-filter="organizacao">Organização e Planejamento</button>
+                </div>
+            </section>
 
-                <div class="content-card premium-card">
-                    <div class="premium-badge">MAIS BAIXADO</div>
-                    <div class="card-icon">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <h3>Guia do Pós-Parto</h3>
-                    <p>Você não precisa passar por isso sozinha. Um guia acolhedor para os primeiros meses com seu bebê</p>
-                    <div class="card-items">
-                        <div class="item">
-                            <i class="fas fa-gem"></i>
-                            <span>Autocuidado e Recuperação</span>
-                            <button class="btn-download" data-file="assets/ebooks/guia-pos-parto.pdf"><i class="fas fa-download"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="content-card premium-card">
-                    <div class="premium-badge">ESSENCIAL</div>
-                    <div class="card-icon">
-                        <i class="fas fa-baby"></i>
-                    </div>
-                    <h3>Guia de Cuidados com o Bebê</h3>
-                    <p>Banho, sono, alimentação e muito mais. Sinta-se confiante em cada momento com seu pequeno</p>
-                    <div class="card-items">
-                        <div class="item">
-                            <i class="fas fa-gem"></i>
-                            <span>Do Básico ao Avançado</span>
-                            <button class="btn-download" data-file="assets/ebooks/guia-cuidados-bebe.pdf"><i class="fas fa-download"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="content-card premium-card">
-                    <div class="premium-badge">FAVORITO</div>
-                    <div class="card-icon">
-                        <i class="fas fa-moon"></i>
-                    </div>
-                    <h3>Guia do Sono do Bebê</h3>
-                    <p>Noites mais tranquilas para você e seu bebê. Técnicas gentis que realmente funcionam</p>
-                    <div class="card-items">
-                        <div class="item">
-                            <i class="fas fa-gem"></i>
-                            <span>Rotina e Técnicas de Sono</span>
-                            <button class="btn-download" data-file="assets/ebooks/guia-sono-bebe.pdf"><i class="fas fa-download"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="content-card premium-card">
-                    <div class="premium-badge">INDISPENSÁVEL</div>
-                    <div class="card-icon">
-                        <i class="fas fa-utensils"></i>
-                    </div>
-                    <h3>Guia de Alimentação</h3>
-                    <p>Da amamentação à introdução alimentar. Nutra seu bebê com amor e conhecimento</p>
-                    <div class="card-items">
-                        <div class="item">
-                            <i class="fas fa-gem"></i>
-                            <span>Nutrição Completa</span>
-                            <button class="btn-download" data-file="assets/ebooks/guia-alimentacao.pdf"><i class="fas fa-download"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="content-card special-card">
-                    <div class="premium-badge gold">BÔNUS EXCLUSIVO</div>
-                    <div class="card-icon">
-                        <i class="fas fa-gift"></i>
-                    </div>
-                    <h3>Presente Especial</h3>
-                    <p>Porque você merece mais. Conteúdos extras preparados especialmente para membros da comunidade</p>
-                    <div class="card-items">
-                        <div class="item">
-                            <i class="fas fa-star"></i>
-                            <span>Acesso ao Grupo VIP de Mães</span>
-                            <button class="btn-access"><i class="fas fa-external-link-alt"></i></button>
-                        </div>
-                        <div class="item">
-                            <i class="fas fa-star"></i>
-                            <span>Checklist do Enxoval Completo</span>
-                            <button class="btn-download" data-file="assets/bonus/checklist-enxoval.pdf"><i class="fas fa-download"></i></button>
-                        </div>
-                        <div class="item">
-                            <i class="fas fa-star"></i>
-                            <span>Planner da Mamãe Organizada</span>
-                            <button class="btn-download" data-file="assets/bonus/planner-mamae.pdf"><i class="fas fa-download"></i></button>
-                        </div>
-                    </div>
-                </div>
+            <!-- Guides Grid -->
+            <section class="guides-grid" id="guidesGrid">
+                <!-- Cards will be rendered by JavaScript -->
             </section>
         </main>
 
