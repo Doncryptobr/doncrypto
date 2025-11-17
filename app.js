@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
             free: true,
             rating: 5.0,
             icon: 'fa-baby-carriage',
-            image: 'https://i.imgur.com/59qyag9.jpg',
+            image: 'https://i.imgur.com/w7b0Dmy.jpg',
             bullets: [
                 '30 jogos e dinâmicas criativas',
                 'Lista de presentes estratégica',
