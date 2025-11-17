@@ -65,24 +65,51 @@ document.addEventListener('DOMContentLoaded', function() {
         showLogoutAnimation();
     });
 
-    // Download buttons
+    // Download buttons - Real file downloads
     document.querySelectorAll('.btn-download').forEach(btn => {
         btn.addEventListener('click', function() {
             const itemName = this.parentElement.querySelector('span').textContent;
-            showNotification(`Preparando download: ${itemName}`, 'success');
+            const filePath = this.getAttribute('data-file');
 
-            // Simulate download
-            setTimeout(() => {
-                showNotification(`${itemName} pronto para download!`, 'success');
-            }, 1500);
+            if (filePath) {
+                showNotification(`Preparando download: ${itemName}`, 'success');
+
+                // Create download link
+                setTimeout(() => {
+                    const link = document.createElement('a');
+                    link.href = filePath;
+                    link.download = filePath.split('/').pop();
+                    link.style.display = 'none';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+
+                    showNotification(`${itemName} baixado com sucesso!`, 'success');
+                }, 500);
+            } else {
+                showNotification(`Arquivo não disponível: ${itemName}`, 'warning');
+            }
         });
     });
 
-    // Play buttons
+    // Play buttons - Audio/Video playback
     document.querySelectorAll('.btn-play').forEach(btn => {
         btn.addEventListener('click', function() {
             const itemName = this.parentElement.querySelector('span').textContent;
-            showNotification(`Iniciando: ${itemName}`, 'info');
+            const videoPath = this.getAttribute('data-video');
+            const audioPath = this.getAttribute('data-audio');
+
+            if (videoPath || audioPath) {
+                const mediaPath = videoPath || audioPath;
+                showNotification(`Iniciando: ${itemName}`, 'info');
+
+                // Open media in new tab or modal (you can customize this)
+                setTimeout(() => {
+                    window.open(mediaPath, '_blank');
+                }, 500);
+            } else {
+                showNotification(`Mídia não disponível: ${itemName}`, 'warning');
+            }
         });
     });
 
@@ -91,6 +118,9 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.addEventListener('click', function() {
             const itemName = this.parentElement.querySelector('span').textContent;
             showNotification(`Acessando: ${itemName}`, 'info');
+
+            // You can add specific URLs here
+            // window.open('https://your-group-link.com', '_blank');
         });
     });
 
