@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
             free: true,
             rating: 5.0,
             icon: 'fa-baby-carriage',
+            image: 'https://i.imgur.com/59qyag9.jpg',
             bullets: [
                 '30 jogos e dinâmicas criativas',
                 'Lista de presentes estratégica',
@@ -49,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
             free: true,
             rating: 4.9,
             icon: 'fa-suitcase',
+            image: 'https://i.imgur.com/Pu8MjoV.jpg',
             bullets: [
                 'Checklist completa de 3 malas',
                 'Saber exatamente o que não levar',
@@ -68,6 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
             free: true,
             rating: 5.0,
             icon: 'fa-box-open',
+            image: 'https://i.imgur.com/vKNv7Li.jpg',
             bullets: [
                 'Economize até R$ 2.500 no enxoval',
                 'Checklist completo (150+ itens)',
@@ -148,7 +151,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         ${guide.rating.toFixed(1)}
                     </span>
                     <div class="card-image">
-                        <i class="fas ${guide.icon}"></i>
+                        ${guide.image
+                            ? `<img src="${guide.image}" alt="${guide.title}" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\\'fas ${guide.icon}\\'></i>'">`
+                            : `<i class="fas ${guide.icon}"></i>`
+                        }
                     </div>
                 </div>
                 <div class="card-body">
