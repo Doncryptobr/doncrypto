@@ -24,10 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const guidesData = [
         {
             id: 1,
+            slug: 'cha-de-bebe-perfeito',
             title: 'Chá de Bebê Perfeito',
             subtitle: 'Organize o Chá de Bebê Mais Memorável e Estratégico',
             category: 'eventos',
-            free: true,
             rating: 5.0,
             icon: 'fa-baby-carriage',
             image: 'https://i.imgur.com/w7b0Dmy.jpg',
@@ -39,15 +39,42 @@ document.addEventListener('DOMContentLoaded', function() {
             ],
             meta: '📄 6 guias em 4 partes • ⏱️ 3–8 horas',
             testimonial: '"Meu chá foi o mais organizado da família!" – Carla M., Curitiba',
-            userHasGuide: true,
-            file: 'assets/ebooks/cha-bebe-perfeito.pdf'
+            file: 'assets/ebooks/cha-bebe-perfeito.pdf',
+            checkoutUrl: 'https://pay.hotmart.com/exemplo-cha-de-bebe',
+            price: 'R$ 47,00',
+            extras: [
+                {
+                    id: 1,
+                    title: 'Checklist de Planejamento',
+                    description: 'Lista completa para organizar cada detalhe',
+                    icon: 'fa-list-check',
+                    fileUrl: 'assets/extras/cha-bebe-checklist.pdf',
+                    fileType: 'pdf'
+                },
+                {
+                    id: 2,
+                    title: 'Templates de Convites',
+                    description: '10 modelos editáveis no Canva',
+                    icon: 'fa-envelope',
+                    fileUrl: 'assets/extras/cha-bebe-convites.pdf',
+                    fileType: 'pdf'
+                },
+                {
+                    id: 3,
+                    title: 'Lista de Presentes Estratégica',
+                    description: 'Planilha Excel editável',
+                    icon: 'fa-file-excel',
+                    fileUrl: 'assets/extras/cha-bebe-lista-presentes.xlsx',
+                    fileType: 'xlsx'
+                }
+            ]
         },
         {
             id: 2,
+            slug: 'mala-da-maternidade',
             title: 'Mala da Maternidade Perfeita',
             subtitle: 'Checklist Completo Para Não Esquecer Nada',
             category: 'preparacao',
-            free: true,
             rating: 4.9,
             icon: 'fa-suitcase',
             image: 'https://i.imgur.com/Pu8MjoV.jpg',
@@ -59,15 +86,34 @@ document.addEventListener('DOMContentLoaded', function() {
             ],
             meta: '📄 18 páginas • ⏱️ 2–3 horas',
             testimonial: '"Não esqueci absolutamente nada!" – Juliana S., São Paulo',
-            userHasGuide: false,
-            file: 'assets/ebooks/mala-maternidade.pdf'
+            file: 'assets/ebooks/mala-maternidade.pdf',
+            checkoutUrl: 'https://pay.hotmart.com/exemplo-mala',
+            price: 'R$ 37,00',
+            extras: [
+                {
+                    id: 4,
+                    title: 'Etiquetas para Malas',
+                    description: 'Modelos prontos para imprimir',
+                    icon: 'fa-tag',
+                    fileUrl: 'assets/extras/mala-etiquetas.pdf',
+                    fileType: 'pdf'
+                },
+                {
+                    id: 5,
+                    title: 'Checklist por Trimestre',
+                    description: 'Organizado por fase da gestação',
+                    icon: 'fa-calendar',
+                    fileUrl: 'assets/extras/mala-checklist-trimestre.pdf',
+                    fileType: 'pdf'
+                }
+            ]
         },
         {
             id: 3,
+            slug: 'organizacao-enxoval',
             title: 'Organização do Enxoval do Bebê',
             subtitle: 'Monte o Enxoval Perfeito Gastando Menos',
             category: 'organizacao',
-            free: true,
             rating: 5.0,
             icon: 'fa-box-open',
             image: 'https://i.imgur.com/vKNv7Li.jpg',
@@ -79,10 +125,62 @@ document.addEventListener('DOMContentLoaded', function() {
             ],
             meta: '📄 78 páginas • ⏱️ 8–12 horas',
             testimonial: '"Economizei muito e comprei tudo certo!" – Amanda R., BH',
-            userHasGuide: false,
-            file: 'assets/ebooks/organizacao-enxoval.pdf'
+            file: 'assets/ebooks/organizacao-enxoval.pdf',
+            checkoutUrl: 'https://pay.hotmart.com/exemplo-enxoval',
+            price: 'R$ 67,00',
+            extras: [
+                {
+                    id: 6,
+                    title: 'Planilha de Controle de Gastos',
+                    description: 'Gerencie seu orçamento do enxoval',
+                    icon: 'fa-calculator',
+                    fileUrl: 'assets/extras/enxoval-planilha-gastos.xlsx',
+                    fileType: 'xlsx'
+                },
+                {
+                    id: 7,
+                    title: 'Guia de Lojas e Fornecedores',
+                    description: 'Melhores lugares para comprar',
+                    icon: 'fa-store',
+                    fileUrl: 'assets/extras/enxoval-guia-lojas.pdf',
+                    fileType: 'pdf'
+                },
+                {
+                    id: 8,
+                    title: 'Checklist Completo (150+ itens)',
+                    description: 'Lista detalhada para não esquecer nada',
+                    icon: 'fa-tasks',
+                    fileUrl: 'assets/extras/enxoval-checklist-completo.pdf',
+                    fileType: 'pdf'
+                }
+            ]
         }
     ];
+
+    // User Purchases (simulated with localStorage)
+    // In production, this would come from database
+    function getUserPurchases() {
+        const purchases = localStorage.getItem('userPurchases');
+        return purchases ? JSON.parse(purchases) : [];
+    }
+
+    function addPurchase(guideId) {
+        const purchases = getUserPurchases();
+        if (!purchases.includes(guideId)) {
+            purchases.push(guideId);
+            localStorage.setItem('userPurchases', JSON.stringify(purchases));
+        }
+    }
+
+    function hasAccess(guideId) {
+        const purchases = getUserPurchases();
+        return purchases.includes(guideId);
+    }
+
+    // For testing: Add first guide as purchased by default
+    if (getUserPurchases().length === 0) {
+        addPurchase(1); // User owns the first guide
+    }
 
     // Check if user is already logged in
     checkAuthStatus();
@@ -92,6 +190,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Setup search and filters
     setupSearchAndFilters();
+
+    // Setup navigation
+    setupNavigation();
+
+    // Update purchased count
+    updatePurchasedCount();
 
     // Toggle password visibility
     togglePasswordBtn.addEventListener('click', function() {
@@ -140,12 +244,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const grid = document.getElementById('guidesGrid');
         if (!grid) return;
 
-        grid.innerHTML = guides.map(guide => `
+        grid.innerHTML = guides.map(guide => {
+            const userHas = hasAccess(guide.id);
+
+            return `
             <div class="guide-card" data-category="${guide.category}">
                 <div class="card-header">
-                    <span class="card-badge ${guide.free ? 'badge-free' : 'badge-premium'}">
-                        ${guide.free ? 'Grátis' : 'Premium'}
-                    </span>
                     <span class="card-rating">
                         <i class="fas fa-star"></i>
                         ${guide.rating.toFixed(1)}
@@ -170,43 +274,52 @@ document.addEventListener('DOMContentLoaded', function() {
                     </ul>
                     <div class="guide-meta">${guide.meta}</div>
                     <div class="card-footer">
-                        <button class="guide-cta included" data-file="${guide.file}" data-title="${guide.title}">
-                            <i class="fas fa-check-circle"></i>
-                            Incluído no seu plano
-                        </button>
-                        <p class="guide-testimonial">${guide.testimonial}</p>
-                        ${guide.userHasGuide ? `
-                            <div class="guide-read-status">
+                        ${userHas ? `
+                            <button class="guide-cta guide-access-btn" data-guide-id="${guide.id}">
+                                <i class="fas fa-book-open"></i>
+                                Acessar guia
+                            </button>
+                            <div class="guide-owned-badge">
                                 <i class="fas fa-check-circle"></i>
-                                Você já leu este guia
+                                Você já possui este guia
                             </div>
-                        ` : ''}
+                        ` : `
+                            <button class="guide-cta guide-buy-btn" data-checkout-url="${guide.checkoutUrl}" data-guide-id="${guide.id}">
+                                <i class="fas fa-shopping-cart"></i>
+                                Comprar guia - ${guide.price}
+                            </button>
+                        `}
+                        <p class="guide-testimonial">${guide.testimonial}</p>
                     </div>
                 </div>
             </div>
-        `).join('');
+            `;
+        }).join('');
 
-        // Add click events for CTA buttons
-        grid.querySelectorAll('.guide-cta').forEach(btn => {
+        // Add click events for Access buttons
+        grid.querySelectorAll('.guide-access-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                const file = this.getAttribute('data-file');
-                const title = this.getAttribute('data-title');
-
-                showNotification(`Preparando download: ${title}`, 'success');
-
-                setTimeout(() => {
-                    const link = document.createElement('a');
-                    link.href = file;
-                    link.download = file.split('/').pop();
-                    link.style.display = 'none';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-
-                    showNotification(`${title} baixado com sucesso!`, 'success');
-                }, 500);
+                const guideId = parseInt(this.getAttribute('data-guide-id'));
+                openGuideDetail(guideId);
             });
         });
+
+        // Add click events for Buy buttons
+        grid.querySelectorAll('.guide-buy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const checkoutUrl = this.getAttribute('data-checkout-url');
+                window.open(checkoutUrl, '_blank');
+            });
+        });
+    }
+
+    // Update purchased count
+    function updatePurchasedCount() {
+        const totalGuidesEl = document.getElementById('totalGuides');
+        const purchasedGuidesEl = document.getElementById('purchasedGuides');
+
+        if (totalGuidesEl) totalGuidesEl.textContent = guidesData.length;
+        if (purchasedGuidesEl) purchasedGuidesEl.textContent = getUserPurchases().length;
     }
 
     // Setup Search and Filters
@@ -255,6 +368,144 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         renderGuides(filteredGuides);
+    }
+
+    // Navigation Functions
+    function setupNavigation() {
+        const backBtn = document.getElementById('backToLibrary');
+        if (backBtn) {
+            backBtn.addEventListener('click', function() {
+                showLibraryView();
+            });
+        }
+    }
+
+    function showLibraryView() {
+        document.getElementById('libraryView').style.display = 'block';
+        document.getElementById('guideDetailView').style.display = 'none';
+        document.querySelector('.search-filters').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    function showGuideDetailView() {
+        document.getElementById('libraryView').style.display = 'none';
+        document.getElementById('guideDetailView').style.display = 'block';
+        document.querySelector('.search-filters').style.display = 'none';
+        window.scrollTo(0, 0);
+    }
+
+    function openGuideDetail(guideId) {
+        const guide = guidesData.find(g => g.id === guideId);
+
+        if (!guide) {
+            showNotification('Guia não encontrado', 'error');
+            return;
+        }
+
+        // Check access
+        if (!hasAccess(guideId)) {
+            showNotification('Você precisa comprar este guia para acessá-lo', 'warning');
+            setTimeout(() => {
+                window.open(guide.checkoutUrl, '_blank');
+            }, 1500);
+            return;
+        }
+
+        // Populate guide detail page
+        document.getElementById('guideDetailTitle').textContent = guide.title;
+        document.getElementById('guideDetailSubtitle').textContent = guide.subtitle;
+
+        // Render main guide download
+        const mainDownload = document.getElementById('mainGuideDownload');
+        if (guide.file) {
+            mainDownload.innerHTML = `
+                <div class="download-card">
+                    <div class="download-info">
+                        <div class="download-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="download-text">
+                            <h4>${guide.title} - PDF Completo</h4>
+                            <p>Arquivo principal do guia</p>
+                        </div>
+                    </div>
+                    <button class="btn-download-file" data-file="${guide.file}">
+                        <i class="fas fa-download"></i>
+                        Baixar PDF
+                    </button>
+                </div>
+            `;
+
+            // Add download event
+            mainDownload.querySelector('.btn-download-file').addEventListener('click', function() {
+                const file = this.getAttribute('data-file');
+                downloadFile(file, guide.title);
+            });
+        } else {
+            mainDownload.innerHTML = `
+                <div class="empty-message">
+                    <i class="fas fa-info-circle"></i>
+                    <p>Guia principal ainda não disponível para download</p>
+                </div>
+            `;
+        }
+
+        // Render extras
+        const extrasList = document.getElementById('guideExtrasList');
+        if (guide.extras && guide.extras.length > 0) {
+            extrasList.innerHTML = guide.extras.map(extra => `
+                <div class="extra-item">
+                    <div class="extra-info">
+                        <div class="extra-icon">
+                            <i class="fas ${extra.icon}"></i>
+                        </div>
+                        <div class="extra-text">
+                            <h5>${extra.title}</h5>
+                            <p>${extra.description}</p>
+                        </div>
+                    </div>
+                    <button class="btn-download-extra" data-file="${extra.fileUrl}" data-title="${extra.title}">
+                        <i class="fas fa-download"></i>
+                        Download
+                    </button>
+                </div>
+            `).join('');
+
+            // Add download events
+            extrasList.querySelectorAll('.btn-download-extra').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const file = this.getAttribute('data-file');
+                    const title = this.getAttribute('data-title');
+                    downloadFile(file, title);
+                });
+            });
+        } else {
+            extrasList.innerHTML = `
+                <div class="empty-message">
+                    <i class="fas fa-gift"></i>
+                    <p>Nenhum extra disponível para este guia no momento</p>
+                </div>
+            `;
+        }
+
+        // Show detail view
+        showGuideDetailView();
+    }
+
+    function downloadFile(filePath, fileName) {
+        showNotification(`Preparando download: ${fileName}`, 'success');
+
+        setTimeout(() => {
+            const link = document.createElement('a');
+            link.href = filePath;
+            link.download = filePath.split('/').pop();
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            showNotification(`Download iniciado com sucesso!`, 'success');
+        }, 500);
     }
 
     // Helper Functions

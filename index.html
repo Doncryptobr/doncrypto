@@ -98,23 +98,17 @@
                     <div class="hero-badges">
                         <span class="hero-badge">
                             <i class="fas fa-book"></i>
-                            3 guias disponíveis
+                            <span id="totalGuides">3</span> guias disponíveis
+                        </span>
+                        <span class="hero-badge">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span id="purchasedGuides">0</span> guias adquiridos
                         </span>
                         <span class="hero-badge">
                             <i class="fas fa-calendar-plus"></i>
                             Novos guias toda semana
                         </span>
-                        <span class="hero-badge">
-                            <i class="fas fa-check-square"></i>
-                            Checklists editáveis
-                        </span>
                     </div>
-                </div>
-                <div class="hero-right">
-                    <span class="premium-status">
-                        <i class="fas fa-crown"></i>
-                        Premium Ativo
-                    </span>
                 </div>
             </section>
 
@@ -134,8 +128,53 @@
             </section>
 
             <!-- Guides Grid -->
-            <section class="guides-grid" id="guidesGrid">
-                <!-- Cards will be rendered by JavaScript -->
+            <section id="libraryView">
+                <section class="guides-grid" id="guidesGrid">
+                    <!-- Cards will be rendered by JavaScript -->
+                </section>
+            </section>
+
+            <!-- Guide Detail Page -->
+            <section id="guideDetailView" style="display: none;">
+                <div class="guide-detail-header">
+                    <button id="backToLibrary" class="btn-back">
+                        <i class="fas fa-arrow-left"></i>
+                        Voltar para Biblioteca
+                    </button>
+                </div>
+
+                <div class="guide-detail-content">
+                    <div class="guide-main-info">
+                        <h2 id="guideDetailTitle">Título do Guia</h2>
+                        <p id="guideDetailSubtitle" class="guide-detail-subtitle">Descrição do guia</p>
+                    </div>
+
+                    <!-- Main Guide Section -->
+                    <div class="guide-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h3>Guia Principal</h3>
+                        </div>
+                        <div class="guide-main-download" id="mainGuideDownload">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Extras Section -->
+                    <div class="guide-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-gift"></i>
+                            </div>
+                            <h3>Extras do Guia</h3>
+                        </div>
+                        <div class="guide-extras-list" id="guideExtrasList">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
             </section>
         </main>
 
